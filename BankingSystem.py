@@ -122,104 +122,126 @@ def registerButton():
 
 def deposit():
 
-global amount
-global buttonDeposit
-global avaliableBalanceDisplay
-amount = StringVar()
-customerInfo = open(nameCheckLogin, "r")
-customerInfoDist = customerInfo.read()
-customerInfoAll = customerInfoDist.split('\n')
-customerBalanceAll = customerInfoAll[4]
-#Deposit Screen
-depositPage = Toplevel(MainPage)
-depositPage.title('Deposit')
+    global amount
+    global buttonDeposit
+    global avaliableBalanceDisplay
+    amount = StringVar()
+    customerInfo   = open(nameCheckLogin, "r")
+    customerInfoDist = customerInfo.read()
+    customerInfoAll = customerInfoDist.split('\n')
+    customerBalanceAll = customerInfoAll[4]
+    
+    #Deposit Screen
+    depositPage = Toplevel(MainPage)
+    depositPage.title('Deposit')
 
-Label(depositPage, text="Deposit", font=('Modern',12)).pack()
-avaliableBalanceDisplay = Label(depositPage, text="Current Balance : £"+customerBalanceAll, font=('Modern',12))
-avaliableBalanceDisplay.pack()
-Label(depositPage, text="Amount : ", font=('Modern',12)).pack()
-buttonDeposit = Label(depositPage,font=('Modern',12))
-buttonDeposit.pack()
+    Label(depositPage, text="Deposit", font=('Modern',12)).pack()
+    avaliableBalanceDisplay = Label(depositPage, text="Current Balance : £"+customerBalanceAll, font=('Modern',12))
+    avaliableBalanceDisplay.pack()
+    Label(depositPage, text="Amount : ", font=('Modern',12)).pack()
+    buttonDeposit = Label(depositPage,font=('Modern',12))
+    buttonDeposit.pack()
 
-Entry(depositPage, textvariable=amount).grid(row=2,column=1)
-Button(depositPage,text="Finish",font=('Modern',12),command=completeDeposit).pack()
+    Entry(depositPage, textvariable=amount).grid(row=2,column=1)
+    Button(depositPage,text="Finish",font=('Modern',12),command=completeDeposit).pack()
 
 def completeDeposit():
-if amount.get() == "":
-buttonDeposit.config(text='Valid amount is needed!',fg="red")
-return
-if float(amount.get()) <=0:
-buttonDeposit.config(text='The entered value is invalid!', fg='red')
-return
+    if amount.get() == "":
+        buttonDeposit.config(text='Valid amount is needed!',fg="red")
+        return
+    if float(amount.get()) <=0:
+        buttonDeposit.config(text='The entered value is invalid!', fg='red')
+        return
 
-customerInfo = open(nameCheckLogin, 'r+')
-customerInfoDist = customerInfo.read()
-details = customerInfoDist.split('\n')
-balanceAvaliable = details[4]
-balanceNew = balanceAvaliable
-balanceNew = float(balanceNew) + float(amount.get())
-customerInfoDist = customerInfoDist.replace(balanceAvaliable, str(balanceNew))
-customerInfo.seek(0)
-customerInfo.truncate(0)
-customerInfo.write(customerInfoDist)
-customerInfo.close()
+    customerInfo = open(nameCheckLogin, 'r+')
+    customerInfoDist = customerInfo.read()
+    details = customerInfoDist.split('\n')
+    balanceAvaliable = details[4]
+    balanceNew = balanceAvaliable
+    balanceNew = float(balanceNew) + float(amount.get())
+    customerInfoDist = customerInfoDist.replace(balanceAvaliable, str(balanceNew))
+    customerInfo.seek(0)
+    customerInfo.truncate(0)
+    customerInfo.write(customerInfoDist)
+    customerInfo.close()
 
-avaliableBalanceDisplay.config(text="Current Balance : £"+str(balanceNew),fg="green")
-buttonDeposit.config(text='Balance Updated', fg='green')
-
+    avaliableBalanceDisplay.config(text="Current Balance : £"+str(balanceNew),fg="green")
+    buttonDeposit.config(text='Balance Updated', fg='green')
 
 def withdraw():
 
-global withdrawNeededAmount
-global buttonWithdraw_1
-global avaliableBalanceDisplay
-withdrawNeededAmount = StringVar()
-customerInfo = open(nameCheckLogin, "r")
-customerInfoDist = customerInfo.read()
-customerInfoAll = customerInfoDist.split('\n')
-customerBalanceAll = customerInfoAll[4]
-#Withdraw Page
-withdrawPage = Toplevel(MainPage)
-withdrawPage.title('Withdraw')
+    global withdrawNeededAmount
+    global buttonWithdraw_1
+    global avaliableBalanceDisplay
+    withdrawNeededAmount = StringVar()
+    customerInfo   = open(nameCheckLogin, "r")
+    customerInfoDist = customerInfo.read()
+    customerInfoAll = customerInfoDist.split('\n')
+    customerBalanceAll = customerInfoAll[4]
+    #Withdraw Page
+    withdrawPage = Toplevel(MainPage)
+    withdrawPage.title('Withdraw')
 
-Label(withdrawPage, text="Deposit", font=('Modern',12)).pack()
-avaliableBalanceDisplay = Label(withdrawPage, text="Current Balance : £"+customerBalanceAll, font=('Modern',12))
-avaliableBalanceDisplay.pack()
-Label(withdrawPage, text="Amount : ", font=('Modern',12)).pack()
-buttonWithdraw_1 = Label(withdrawPage,font=('Modern',12))
-buttonWithdraw_1.pack()
+    Label(withdrawPage, text="Deposit", font=('Modern',12)).pack()
+    avaliableBalanceDisplay = Label(withdrawPage, text="Current Balance : £"+customerBalanceAll, font=('Modern',12))
+    avaliableBalanceDisplay.pack()
+    Label(withdrawPage, text="Amount : ", font=('Modern',12)).pack()
+    buttonWithdraw_1 = Label(withdrawPage,font=('Modern',12))
+    buttonWithdraw_1.pack()
 
-Entry(withdrawPage, textvariable=withdrawNeededAmount).pack()
+    Entry(withdrawPage, textvariable=withdrawNeededAmount).pack()
 
-Button(withdrawPage,text="Finish",font=('Modern',12),command=completeWithdraw).pack()
+    Button(withdrawPage,text="Finish",font=('Modern',12),command=completeWithdraw).pack()
 
 def completeWithdraw():
-if withdrawNeededAmount.get() == "":
-buttonWithdraw_1.config(text='Amount is required!',fg="red")
-return
-if float(withdrawNeededAmount.get()) <=0:
-buttonWithdraw_1.config(text='PLease do not exceed the avaliable balance.', fg='red')
-return
+    if withdrawNeededAmount.get() == "":
+        buttonWithdraw_1.config(text='Amount is required!',fg="red")
+        return
+    if float(withdrawNeededAmount.get()) <=0:
+        buttonWithdraw_1.config(text='PLease do not exceed the avaliable balance.', fg='red')
+        return
 
-customerInfo = open(nameCheckLogin, 'r+')
-customerInfoDist = customerInfo.read()
-details = customerInfoDist.split('\n')
-balanceAvaliable = details[4]
+    customerInfo = open(nameCheckLogin, 'r+')
+    customerInfoDist = customerInfo.read()
+    details = customerInfoDist.split('\n')
+    balanceAvaliable = details[4]
 
-if float(withdrawNeededAmount.get()) >float(balanceAvaliable):
-buttonWithdraw_1.config(text='Insufficient Funds!', fg='red')
-return
+    if float(withdrawNeededAmount.get()) >float(balanceAvaliable):
+        buttonWithdraw_1.config(text='Insufficient Funds!', fg='red')
+        return
 
-balanceNew = balanceAvaliable
-balanceNew = float(balanceNew) - float(withdrawNeededAmount.get())
-customerInfoDist = customerInfoDist.replace(balanceAvaliable, str(balanceNew))
-customerInfo.seek(0)
-customerInfo.truncate(0)
-customerInfo.write(customerInfoDist)
-customerInfo.close()
+    balanceNew = balanceAvaliable
+    balanceNew = float(balanceNew) - float(withdrawNeededAmount.get())
+    customerInfoDist       = customerInfoDist.replace(balanceAvaliable, str(balanceNew))
+    customerInfo.seek(0)
+    customerInfo.truncate(0)
+    customerInfo.write(customerInfoDist)
+    customerInfo.close()
 
-avaliableBalanceDisplay.config(text="Current Balance : £"+str(balanceNew),fg="green")
-buttonWithdraw_1.config(text='Balance has been Updated.', fg='green')
+    avaliableBalanceDisplay.config(text="Current Balance : £"+str(balanceNew),fg="green")
+    buttonWithdraw_1.config(text='Balance has been Updated.', fg='green')
+
+def customerPersonalDetail():
+
+    customerInfo = open(nameCheckLogin, 'r')
+    customerInfoDist = customerInfo.read()
+    customerInfoAll = customerInfoDist.split('\n')
+    namesDetailAll = customerInfoAll[0]
+    ageDetailAll = customerInfoAll[2]
+    genderDetailAll = customerInfoAll[3]
+    customerBalanceAll = customerInfoAll[4]
+
+    #Customer Personal details Page
+    customerDetailPage = Toplevel(MainPage)
+    customerDetailPage.title('Personal Details')
+
+    Label(customerDetailPage, text="Personal Details", font=('Modern',12)).pack()
+    Label(customerDetailPage, text="Name : "+namesDetailAll, font=('Modern',12)).pack()
+    Label(customerDetailPage, text="Age : "+ageDetailAll, font=('Modern',12)).pack()
+    Label(customerDetailPage, text="Gender : "+genderDetailAll, font=('Modern',12)).pack()
+    Label(customerDetailPage, text="Balance :£"+customerBalanceAll, font=('Modern',12)).pack()
+
+
 
 # Images used for visual purposes
 LogoImage = Image.open('Bank_of_Ceylon.svg.png')
