@@ -58,6 +58,69 @@ def loginButton():
                 return
     loginButtonT.config(fg="red", text=" account invalid. ")
 
+def register():
+    
+    global cusotmerName
+    global customerAge
+    global cusotmerGender
+    global customerPass
+
+    cusotmerName = StringVar()
+    customerAge = StringVar()
+    cusotmerGender = StringVar()
+    customerPass = StringVar()
+    
+    
+    
+    #Register Page
+    registerPage = Toplevel(MainPage)
+    registerPage.title('Register')
+    global button_1
+
+    Label(registerPage, text="Input credientails to open an bank account.", font=('Modern',12)).pack()
+    Label(registerPage, text="Name", font=('Modern',12)).pack()
+    Label(registerPage, text="Age", font=('Modern',12)).pack()
+    Label(registerPage, text="Gender", font=('Modern',12)).pack()
+    Label(registerPage, text="Password", font=('Modern',12)).pack()
+    button_1 = Label(registerPage, font=('Modern',12))
+    button_1.pack()
+
+    Entry(registerPage,textvariable=cusotmerName).pack()
+    Entry(registerPage,textvariable=customerAge).pack()
+    Entry(registerPage,textvariable=cusotmerGender).pack()
+    Entry(registerPage,textvariable=customerPass,show="*").pack()
+
+
+    Button(registerPage, text="Register", command = registerButton, font=('Modern',12)).pack()
+
+
+def registerButton():
+    name = cusotmerName.get()
+    age = customerAge.get()
+    gender = cusotmerGender.get()
+    password = customerPass.get()
+    allCustomerInformation = os.listdir()
+
+
+    if name == "" or age == "" or gender == "" or password == "":
+        button_1.config(fg="red",text="All fields requried * ")
+        return
+
+    for name_check in allCustomerInformation:
+        if name == name_check:
+            button_1.config(fg="red",text="Please re-try, Account already exists")
+            return
+        else:
+            new_customerInfo = open(name,"w")
+            new_customerInfo.write(name + '\n')   
+            new_customerInfo.write(password + '\n')
+            new_customerInfo.write(age + '\n')
+            new_customerInfo.write(gender +'\n')
+            new_customerInfo.write('0')
+            new_customerInfo.close()
+            button_1.config(fg="green", text="Account has been created")
+
+
 
 # Images used for visual purposes
 LogoImage = Image.open('Bank_of_Ceylon.svg.png')
