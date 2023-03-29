@@ -120,7 +120,52 @@ def registerButton():
             new_customerInfo.close()
             button_1.config(fg="green", text="Account has been created")
 
+def deposit():
 
+global amount
+global buttonDeposit
+global avaliableBalanceDisplay
+amount = StringVar()
+customerInfo = open(nameCheckLogin, "r")
+customerInfoDist = customerInfo.read()
+customerInfoAll = customerInfoDist.split('\n')
+customerBalanceAll = customerInfoAll[4]
+#Deposit Screen
+depositPage = Toplevel(MainPage)
+depositPage.title('Deposit')
+
+Label(depositPage, text="Deposit", font=('Modern',12)).pack()
+avaliableBalanceDisplay = Label(depositPage, text="Current Balance : £"+customerBalanceAll, font=('Modern',12))
+avaliableBalanceDisplay.pack()
+Label(depositPage, text="Amount : ", font=('Modern',12)).pack()
+buttonDeposit = Label(depositPage,font=('Modern',12))
+buttonDeposit.pack()
+
+Entry(depositPage, textvariable=amount).grid(row=2,column=1)
+Button(depositPage,text="Finish",font=('Modern',12),command=completeDeposit).pack()
+
+def completeDeposit():
+if amount.get() == "":
+buttonDeposit.config(text='Valid amount is needed!',fg="red")
+return
+if float(amount.get()) <=0:
+buttonDeposit.config(text='The entered value is invalid!', fg='red')
+return
+
+customerInfo = open(nameCheckLogin, 'r+')
+customerInfoDist = customerInfo.read()
+details = customerInfoDist.split('\n')
+balanceAvaliable = details[4]
+balanceNew = balanceAvaliable
+balanceNew = float(balanceNew) + float(amount.get())
+customerInfoDist = customerInfoDist.replace(balanceAvaliable, str(balanceNew))
+customerInfo.seek(0)
+customerInfo.truncate(0)
+customerInfo.write(customerInfoDist)
+customerInfo.close()
+
+avaliableBalanceDisplay.config(text="Current Balance : £"+str(balanceNew),fg="green")
+buttonDeposit.config(text='Balance Updated', fg='green')
 
 # Images used for visual purposes
 LogoImage = Image.open('Bank_of_Ceylon.svg.png')
