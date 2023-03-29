@@ -167,6 +167,60 @@ customerInfo.close()
 avaliableBalanceDisplay.config(text="Current Balance : £"+str(balanceNew),fg="green")
 buttonDeposit.config(text='Balance Updated', fg='green')
 
+
+def withdraw():
+
+global withdrawNeededAmount
+global buttonWithdraw_1
+global avaliableBalanceDisplay
+withdrawNeededAmount = StringVar()
+customerInfo = open(nameCheckLogin, "r")
+customerInfoDist = customerInfo.read()
+customerInfoAll = customerInfoDist.split('\n')
+customerBalanceAll = customerInfoAll[4]
+#Withdraw Page
+withdrawPage = Toplevel(MainPage)
+withdrawPage.title('Withdraw')
+
+Label(withdrawPage, text="Deposit", font=('Modern',12)).pack()
+avaliableBalanceDisplay = Label(withdrawPage, text="Current Balance : £"+customerBalanceAll, font=('Modern',12))
+avaliableBalanceDisplay.pack()
+Label(withdrawPage, text="Amount : ", font=('Modern',12)).pack()
+buttonWithdraw_1 = Label(withdrawPage,font=('Modern',12))
+buttonWithdraw_1.pack()
+
+Entry(withdrawPage, textvariable=withdrawNeededAmount).pack()
+
+Button(withdrawPage,text="Finish",font=('Modern',12),command=completeWithdraw).pack()
+
+def completeWithdraw():
+if withdrawNeededAmount.get() == "":
+buttonWithdraw_1.config(text='Amount is required!',fg="red")
+return
+if float(withdrawNeededAmount.get()) <=0:
+buttonWithdraw_1.config(text='PLease do not exceed the avaliable balance.', fg='red')
+return
+
+customerInfo = open(nameCheckLogin, 'r+')
+customerInfoDist = customerInfo.read()
+details = customerInfoDist.split('\n')
+balanceAvaliable = details[4]
+
+if float(withdrawNeededAmount.get()) >float(balanceAvaliable):
+buttonWithdraw_1.config(text='Insufficient Funds!', fg='red')
+return
+
+balanceNew = balanceAvaliable
+balanceNew = float(balanceNew) - float(withdrawNeededAmount.get())
+customerInfoDist = customerInfoDist.replace(balanceAvaliable, str(balanceNew))
+customerInfo.seek(0)
+customerInfo.truncate(0)
+customerInfo.write(customerInfoDist)
+customerInfo.close()
+
+avaliableBalanceDisplay.config(text="Current Balance : £"+str(balanceNew),fg="green")
+buttonWithdraw_1.config(text='Balance has been Updated.', fg='green')
+
 # Images used for visual purposes
 LogoImage = Image.open('Bank_of_Ceylon.svg.png')
 LogoImage = LogoImage.resize((185,185))
