@@ -51,7 +51,7 @@ def loginButton():
                 Button(coustomerAccountDetails, text="Customer's Personal Details",font=('Modern',12),width=30,command=customerPersonalDetail).pack()
                 Button(coustomerAccountDetails, text="Deposit",font=('Modern',12),width=30,command=deposit).pack()
                 Button(coustomerAccountDetails, text="Withdraw",font=('Modern',12),width=30,command=withdraw).pack()
-                Label(coustomerAccountDetails).grid(row=5,sticky=N,pady=10)
+                Label(coustomerAccountDetails).pack()
                 return
             else:
                 loginButtonT.config(fg="red", text="ERROR!!! Password incorrect!!")
@@ -142,7 +142,7 @@ def deposit():
     buttonDeposit = Label(depositPage,font=('Modern',12))
     buttonDeposit.pack()
 
-    Entry(depositPage, textvariable=amount).grid(row=2,column=1)
+    Entry(depositPage, textvariable=amount).pack()
     Button(depositPage,text="Finish",font=('Modern',12),command=completeDeposit).pack()
 
 def completeDeposit():
