@@ -3,6 +3,9 @@ from tkinter import *
 import os
 from PIL import ImageTk, Image
 
-#Main Screen
-master = Tk()
-master.title('Banking App')
+# HomePage
+MainPage = Tk()
+
+
+MainPage.title('BankingSystem')
+MainPage.mainloop()
