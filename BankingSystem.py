@@ -3,7 +3,7 @@ from tkinter import *
 import os
 from PIL import ImageTk, Image
 
-# HomePage
+# Main Page
 MainPage = Tk()
 def login():
 
@@ -15,15 +15,15 @@ def login():
     loginPassCheck_ = StringVar()
     loginPage = Toplevel(MainPage)
     loginPage.title('Login')
-    Label(loginPage, text="Login to your account", font=('Modern',12)).pack()
-    Label(loginPage, text="Username", font=('Modern',12)).pack()
-    Label(loginPage, text="Password", font=('Modern',12)).pack()
-    loginButtonT = Label(loginPage, font=('Modern',12))
+    Label(loginPage, text="Login to your account", font=('Modern',14)).pack()
+    Label(loginPage, text="Username", font=('Modern',14)).pack()
+    Label(loginPage, text="Password", font=('Modern',14)).pack()
+    loginButtonT = Label(loginPage, font=('Modern',14))
     loginButtonT.pack()
 
     Entry(loginPage, textvariable=loginNameCheck_).pack()
     Entry(loginPage, textvariable=loginPassCheck_,show="*").pack()
-    Button(loginPage, text="Login", command=loginButton, width=15,font=('Modern',12)).pack()
+    Button(loginPage, text="Login", command=loginButton, width=15,font=('Modern',14)).pack()
 
 
 def loginButton():
@@ -45,12 +45,13 @@ def loginButton():
                 coustomerAccountDetails = Toplevel(MainPage)
                 coustomerAccountDetails.title('Details')
 
-                Label(coustomerAccountDetails, text="Customer Account Details", font=('Modern',12)).pack()
-                Label(coustomerAccountDetails, text="Hello "+ name, font=('Modern',12)).pack()
+                Label(coustomerAccountDetails, text="Customer Account Details", font=('Modern',14)).pack()
+                Label(coustomerAccountDetails, text="Hello "+ name, font=('Modern',14)).pack()
                 
-                Button(coustomerAccountDetails, text="Customer's Personal Details",font=('Modern',12),width=30,command=customerPersonalDetail).pack()
-                Button(coustomerAccountDetails, text="Deposit",font=('Modern',12),width=30,command=deposit).pack()
-                Button(coustomerAccountDetails, text="Withdraw",font=('Modern',12),width=30,command=withdraw).pack()
+                Button(coustomerAccountDetails, text="Customer's Personal Details",font=('Modern',14),width=30,command=customerPersonalDetail).pack()
+                Button(coustomerAccountDetails, text="Deposit",font=('Modern',14),width=30,command=deposit).pack()
+                Button(coustomerAccountDetails, text="Withdraw",font=('Modern',14),width=30,command=withdraw).pack()
+                Button(coustomerAccountDetails, text="Transfer",font=('Modern',14),width=30,command=transfer).pack()
                 Label(coustomerAccountDetails).pack()
                 return
             else:
@@ -77,12 +78,12 @@ def register():
     registerPage.title('Register')
     global button_1
 
-    Label(registerPage, text="Input credientails to open an bank account.", font=('Modern',12)).pack()
-    Label(registerPage, text="Name", font=('Modern',12)).pack()
-    Label(registerPage, text="Age", font=('Modern',12)).pack()
-    Label(registerPage, text="Gender", font=('Modern',12)).pack()
-    Label(registerPage, text="Password", font=('Modern',12)).pack()
-    button_1 = Label(registerPage, font=('Modern',12))
+    Label(registerPage, text="Input credientails to open an bank account.", font=('Modern',14)).pack()
+    Label(registerPage, text="Name", font=('Modern',14)).pack()
+    Label(registerPage, text="Age", font=('Modern',14)).pack()
+    Label(registerPage, text="Gender", font=('Modern',14)).pack()
+    Label(registerPage, text="Password", font=('Modern',14)).pack()
+    button_1 = Label(registerPage, font=('Modern',14))
     button_1.pack()
 
     Entry(registerPage,textvariable=cusotmerName).pack()
@@ -91,7 +92,7 @@ def register():
     Entry(registerPage,textvariable=customerPass,show="*").pack()
 
 
-    Button(registerPage, text="Register", command = registerButton, font=('Modern',12)).pack()
+    Button(registerPage, text="Register", command = registerButton, font=('Modern',14)).pack()
 
 
 def registerButton():
@@ -99,6 +100,7 @@ def registerButton():
     age = customerAge.get()
     gender = cusotmerGender.get()
     password = customerPass.get()
+    global allCustomerInformation
     allCustomerInformation = os.listdir()
 
 
@@ -135,15 +137,15 @@ def deposit():
     depositPage = Toplevel(MainPage)
     depositPage.title('Deposit')
 
-    Label(depositPage, text="Deposit", font=('Modern',12)).pack()
-    avaliableBalanceDisplay = Label(depositPage, text="Current Balance : £"+customerBalanceAll, font=('Modern',12))
+    Label(depositPage, text="Deposit", font=('Modern',14)).pack()
+    avaliableBalanceDisplay = Label(depositPage, text="Current Balance : £"+customerBalanceAll, font=('Modern',14))
     avaliableBalanceDisplay.pack()
-    Label(depositPage, text="Amount : ", font=('Modern',12)).pack()
-    buttonDeposit = Label(depositPage,font=('Modern',12))
+    Label(depositPage, text="Amount : ", font=('Modern',14)).pack()
+    buttonDeposit = Label(depositPage,font=('Modern',14))
     buttonDeposit.pack()
 
     Entry(depositPage, textvariable=amount).pack()
-    Button(depositPage,text="Finish",font=('Modern',12),command=completeDeposit).pack()
+    Button(depositPage,text="Finish",font=('Modern',14),command=completeDeposit).pack()
 
 def completeDeposit():
     if amount.get() == "":
@@ -173,6 +175,7 @@ def withdraw():
     global withdrawNeededAmount
     global buttonWithdraw_1
     global avaliableBalanceDisplay
+    global customerBalanceAll
     withdrawNeededAmount = StringVar()
     customerInfo   = open(nameCheckLogin, "r")
     customerInfoDist = customerInfo.read()
@@ -182,16 +185,16 @@ def withdraw():
     withdrawPage = Toplevel(MainPage)
     withdrawPage.title('Withdraw')
 
-    Label(withdrawPage, text="Deposit", font=('Modern',12)).pack()
-    avaliableBalanceDisplay = Label(withdrawPage, text="Current Balance : £"+customerBalanceAll, font=('Modern',12))
+    Label(withdrawPage, text="Deposit", font=('Modern',14)).pack()
+    avaliableBalanceDisplay = Label(withdrawPage, text="Current Balance : £"+customerBalanceAll, font=('Modern',14))
     avaliableBalanceDisplay.pack()
-    Label(withdrawPage, text="Amount : ", font=('Modern',12)).pack()
-    buttonWithdraw_1 = Label(withdrawPage,font=('Modern',12))
+    Label(withdrawPage, text="Amount : ", font=('Modern',14)).pack()
+    buttonWithdraw_1 = Label(withdrawPage,font=('Modern',14))
     buttonWithdraw_1.pack()
 
     Entry(withdrawPage, textvariable=withdrawNeededAmount).pack()
 
-    Button(withdrawPage,text="Finish",font=('Modern',12),command=completeWithdraw).pack()
+    Button(withdrawPage,text="Finish",font=('Modern',14),command=completeWithdraw).pack()
 
 def completeWithdraw():
     if withdrawNeededAmount.get() == "":
@@ -235,27 +238,111 @@ def customerPersonalDetail():
     customerDetailPage = Toplevel(MainPage)
     customerDetailPage.title('Personal Details')
 
-    Label(customerDetailPage, text="Personal Details", font=('Modern',12)).pack()
-    Label(customerDetailPage, text="Name : "+namesDetailAll, font=('Modern',12)).pack()
-    Label(customerDetailPage, text="Age : "+ageDetailAll, font=('Modern',12)).pack()
-    Label(customerDetailPage, text="Gender : "+genderDetailAll, font=('Modern',12)).pack()
-    Label(customerDetailPage, text="Balance :£"+customerBalanceAll, font=('Modern',12)).pack()
+    Label(customerDetailPage, text="Personal Details", font=('Modern',14)).pack()
+    Label(customerDetailPage, text="Name : "+ namesDetailAll, font=('Modern',14)).pack()
+    Label(customerDetailPage, text="Age : "+ ageDetailAll, font=('Modern',14)).pack()
+    Label(customerDetailPage, text="Gender : "+ genderDetailAll, font=('Modern',14)).pack()
+    Label(customerDetailPage, text="Balance :£"+ customerBalanceAll, font=('Modern',14)).pack()
+
+def transfer():
+    global transferToCheck
+    global transferAmountCheck
+    global transferButtonT
+    transferToCheck = StringVar()
+    transferAmountCheck = StringVar()
+    transferPage = Toplevel(MainPage)
+    transferPage.title('Transfer')
+    Label(transferPage, text="Transfer Money", font=('Modern',14)).pack()
+    Label(transferPage, text="Enter Recipient's Username:", font=('Modern',14)).pack()
+    Entry(transferPage, textvariable=transferToCheck).pack()
+    Label(transferPage, text="Enter Amount to Transfer:", font=('Modern',14)).pack()
+    Entry(transferPage, textvariable=transferAmountCheck).pack()
+    transferButtonT = Label(transferPage, font=('Modern',14))
+    transferButtonT.pack()
+    Button(transferPage, text="Transfer", command=transferButton, font=('Modern',14)).pack()
+
+def transferButton():
+    global transferToCheck
+    global transferAmountCheck
+    global transferButtonT
+    recipient = transferToCheck.get()
+    amount = transferAmountCheck.get()
+    sender_balance = 0
+    recipient_balance = 0
+    sender_info = open(nameCheckLogin,"r")
+    sender_info_dist = sender_info.read()
+    sender_info_all = sender_info_dist.split('\n')
+    sender_balance_all = sender_info_all[4]
+    if amount == "" or recipient == "":
+        transferButtonT.config(fg="red", text="All fields required *")
+        return
+    try:
+        amount = int(amount)
+        if amount < 1:
+            transferButtonT.config(fg="red", text="Invalid Amount")
+            return
+    except ValueError:
+        transferButtonT.config(fg="red", text="Invalid Amount")
+        return
+
+    allCustomerInformation = os.listdir()
+
+    if recipient not in allCustomerInformation:
+        transferButtonT.config(fg="red", text="Recipient Does Not Exist")
+        return
+    else:
+        recipient_info = open(recipient,"r")
+        recipient_info_dist = recipient_info.read()
+        recipient_info_all = recipient_info_dist.split('\n')
+        recipient_balance_all = recipient_info_all[4]
+        try:
+            sender_balance = int(sender_balance_all)
+            recipient_balance = int(recipient_balance_all)
+        except ValueError:
+            transferButtonT.config(fg="red", text="Invalid Account Balance")
+            return
+
+        if sender_balance < amount:
+            transferButtonT.config(fg="red", text="Insufficient Balance")
+            return
+
+        sender_balance -= amount
+        recipient_balance += amount
+
+        sender_info = open(nameCheckLogin,"w")
+        sender_info.write(sender_info_all[0]+'\n')
+        sender_info.write(sender_info_all[1]+'\n')
+        sender_info.write(sender_info_all[2]+'\n')
+        sender_info.write(sender_info_all[3]+'\n')
+        sender_info.write(str(sender_balance))
+        sender_info.close()
+
+        recipient_info = open(recipient,"w")
+        recipient_info.write(recipient_info_all[0]+'\n')
+        recipient_info.write(recipient_info_all[1]+'\n')
+        recipient_info.write(recipient_info_all[2]+'\n')
+        recipient_info.write(recipient_info_all[3]+'\n')
+        recipient_info.write(str(recipient_balance))
+        recipient_info.close()
+
+        transferButtonT.config(fg="green", text="Transfer Successful")
+        avaliableBalanceDisplay.config(text="Available Balance: £"+ str(sender_balance))
 
 
 
 # Images used for visual purposes
-LogoImage = Image.open('Bank_of_Ceylon.svg.png')
+LogoImage = Image.open('Bank_of_Ceylon.svg.png') # the image is from google.co.uk
 LogoImage = LogoImage.resize((185,185))
 LogoImage = ImageTk.PhotoImage(LogoImage)
 
 
 Label(MainPage, text = "BankOfCeylon", font=('Modern',28)).pack()
-Label(MainPage, text = "A simple banking system designed to be used by all type of audience.", font=('Modern',12)).pack()
+Label(MainPage, text = "A simple banking system designed to be used by all type of audience.", font=('Modern',14)).pack()
 Label(MainPage, image=LogoImage).pack()
 
 
-Button(MainPage, text="Register", font=('Modern',12),width=20,command=register).pack()
-Button(MainPage, text="Login", font=('Modern',12),width=20,command=login).pack()
+Button(MainPage, text="Register", font=('Modern',14),width=20,command=register).pack()
+Button(MainPage, text="Login", font=('Modern',14),width=20,command=login).pack()
 
 MainPage.title('BankingSystem')
 MainPage.mainloop()
